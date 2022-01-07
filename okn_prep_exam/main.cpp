@@ -7,6 +7,7 @@ using namespace std;
 
 int my_pow(int& x, int& degree);
 
+// шаблон
 template <typename T>
 T multiply(T a, T b)
 {
@@ -16,9 +17,12 @@ T multiply(T a, T b)
 int m2(int x) { return 2 * x; }
 int m3(int x) { return 3 * x; }
 
+// указатель на функцию
 int (*f_ptr)(int x);
+// новый тип данных
 typedef int (*my_func_type)(int x);
 
+// объявление функций с неопределенным кол-вом переменных (реализация в низу)
 int sum_many(int count, ...);
 int sum_many2(int count, ...);
 
@@ -35,7 +39,7 @@ int main()
     scanf_s("%d %d", &x, &y);
     printf_s("x = %d, y = %d", x, y);
 
-    // типы данных
+    // стандартные типы данных
     int a1;
     float a2;
     double a3;
@@ -51,10 +55,10 @@ int main()
     // int aaa существует в функции main
     int aaa = 5;
     for (size_t i = 0; i < 5; i++)
-       cout << i << endl;
+        cout << i << endl;
 
     // осн. операторы языка C
-    // if, for, while, switch
+    // if, for, while, switch, +, ++, *=, ...
 
     // указатели
     int* a1_ptr = &a1;
@@ -84,7 +88,7 @@ int main()
     //    int main() { int x = 5; func_ref(x); }
     // 3. по указателю:
     //    int func_ptr(int* a, int* b) { ... }
-    //    int main() { int* x = 5; int y = 3; func_ptr(x, &y); }
+    //    int main() { int a = 5; int* x = &a; int y = 3; func_ptr(x, &y); }
 
     // перегрузка функций
     int s1 = Sum(x, y);
@@ -111,7 +115,7 @@ int main()
     // указатель на указатель
     int** arr = new int* [64];
     for (size_t i = 0; i < 64; i++)
-       arr[i] = new int[64];
+        arr[i] = new int[64];
 
     // строка как массив символов
     char* str1 = new char[256];
@@ -123,12 +127,13 @@ int main()
     // strtok_s:
     char* str2 = new char[256];
     gets_s(str2, 255);
-    char* str2_copy = str2;
+    char* str2_copy = new char[256];
+    strcpy_s(str2_copy, 255, str2);
     char* context = new char[256];
     while (char* part = strtok_s(str2_copy, ",", &context))
     {
-       cout << part << " - ";
-       str2_copy = nullptr;
+        cout << part << " - ";
+        str2_copy = nullptr;
     }
     delete[] str2;
 
@@ -152,25 +157,23 @@ int main()
     // структурированные типы данных
     struct book
     {
-       char name[100];
-       char author[50];
-       int sheets_count;
+        char name[100];
+        char author[50];
+        int sheets_count;
     };
     // 1ый способ
     book* war_and_peace = new book;
     war_and_peace->sheets_count = 1250;
     char author[] = "Leo Tolstoy";
     for (size_t i = 0; i < strlen(author) + 1; i++)
-       war_and_peace->author[i] = author[i];
+        war_and_peace->author[i] = author[i];
     // 2ой способ
     book dead_souls = { "Мертвые души", "Н. В. Гоголь", 450 };
 
-    int result = sum_many2(3, 1, 2, 3);
-    cout << result << endl;
-
-    
 
     // прочее
+    int result = sum_many2(3, 1, 2, 3);
+    cout << result << endl;
     cout << sum_many(5, 1, 2, 3, 4, 5) << endl;
     cout << sizeof(int*) << endl;
 
@@ -184,7 +187,7 @@ int main()
 
     cout << sizeof(my_struct*) << endl;
     cout << sizeof(double) << endl;
-    
+
     return 0;
 }
 
