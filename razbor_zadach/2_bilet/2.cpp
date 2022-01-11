@@ -114,6 +114,9 @@ int main()
     int N;
     point* points = read_data(N);
 
+    if (points == nullptr)
+        return -1;
+
     // вывод входных данных
     for (size_t i = 0; i < N; i++)
     {
